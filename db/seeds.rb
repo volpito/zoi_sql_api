@@ -1,6 +1,6 @@
 Category.create([
   {
-    name: "Classique",
+    name: "Classiques",
     description: "Les indémodables de la maison Zoï"
   },
   {

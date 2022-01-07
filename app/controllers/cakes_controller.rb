@@ -1,9 +1,8 @@
 class CakesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @cakes = Cake.all
-    render json: @cakes
+    render json: @cakes.sort
   end
 
   def show
@@ -22,8 +21,7 @@ class CakesController < ApplicationController
 
   def update
     @cake = Cake.find(params[:id])
-    if @cake
-      @cake.update(cake_params)
+    if @cake.update(cake_params)
       render json: @cake, status: 200
     else
       render json: {error: "Impossible de modifier les infos de ce gâteau ><'"}, status: 400
@@ -42,7 +40,7 @@ class CakesController < ApplicationController
 
   private
 
-  def author_params
-    params.permit(:name, :description, :image, :available)
+  def cake_params
+    params.require(:cake).permit(:name, :description, :image, :available, :category_id)
   end
 end
